@@ -1,5 +1,5 @@
 import winston from 'winston';
-import DailyRotateFile from 'winston-daily-rotate-file';
+import path from 'path';
 
 const { createLogger, format, transports } = winston;
 
@@ -29,8 +29,20 @@ const logger = createLogger({
                 )
             ),
         }),
+        new transports.File({
+            filename: path.join('logs', 'error.log'),
+            level: 'error',
+        }),
+        new transports.File({
+            filename: path.join('logs', 'combined.log'),
+        }),
     ],
-    // exitOnError: false,
+    exceptionHandlers: [
+        new transports.File({ filename: path.join('logs', 'exceptions.log') }),
+    ],
+    rejectionHandlers: [
+        new transports.File({ filename: path.join('logs', 'rejections.log') }),
+    ],
 });
 
 export default logger;
