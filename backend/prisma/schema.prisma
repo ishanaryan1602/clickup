@@ -26,63 +26,67 @@ enum Status {
 
 enum TaskTypeEnum {
   TASK
-  MILESTONE
   BUG
-  FEATURE_REQUEST
-  FORM_RESPONSE
-  MEETING_NOTE
   SUBTASK
-  USER_STORY
 }
 
 // define model
 model User {
-  user_id   String   @id @default(uuid())
-  email     String   @unique
-  name      String
-  password  String
-  role      Role     @default(USER)
+  user_id       String        @id @default(uuid())
+  email         String        @unique
+  name          String
+  password      String
+  role          Role          @default(USER)
+
+  refresh_token RefreshToken?
+  assignees     Assignee[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  
-  refresh_token RefreshToken?
-  assignees     Assignee[]
 }
 
 model RefreshToken {
-  id            String   @id @default(uuid())
-  refresh_token String   @unique
-  user_id       String   @unique
-  created_at    DateTime @default(now())
-  updated_at    DateTime @default(now()) @updatedAt
+  id            String @id @default(uuid())
+  refresh_token String @unique
+  user_id       String @unique
 
   user User @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
 }
 
 model Task {
-  task_id      String   @id @default(uuid())
-  title        String
-  description  String?
-  status       Status   @default(TO_DO)
-  due_date     DateTime?
-  task_type    TaskTypeEnum @default(TASK)
-  assignees    Assignee[]
-
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
+  task_id     String       @id @default(uuid())
+  title       String
+  description String?
+  status      Status       @default(TO_DO)
+  due_date    DateTime?
+  task_type   TaskTypeEnum @default(TASK)
   
+  assignees   Assignee[]
 
+  subtask_parent_id String?
+  bug_parent_id     String?
+
+  subtaskParent     Task?   @relation("Subtasks", fields: [subtask_parent_id], references: [task_id], onDelete: Cascade)
+  subtasks          Task[]  @relation("Subtasks")
+
+  bugParent         Task?   @relation("Bugs", fields: [bug_parent_id], references: [task_id], onDelete: Cascade)
+  bugs              Task[]  @relation("Bugs")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Assignee {
-  id         String   @id @default(uuid())
-  task_id    String
-  user_id    String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id      String @id @default(uuid())
+  task_id String
+  user_id String
 
   task Task @relation(fields: [task_id], references: [task_id], onDelete: Cascade)
   user User @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
