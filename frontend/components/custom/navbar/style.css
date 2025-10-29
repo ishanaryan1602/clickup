@@ -1,6 +1,12 @@
 .navbar_outer_div {
     width: 100%;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.89);
+    backdrop-filter: blur(8px);
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 999;
 }
 
 .navbar_inner_div {
