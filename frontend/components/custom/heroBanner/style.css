@@ -1,0 +1,53 @@
+.herobanner_outer_div {
+    padding-top: 200px;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    padding-bottom: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.herobanner_h1_heading {
+    font-weight: 700;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    background: linear-gradient(98deg, #000000 43.06%, #8f8f8f 91.81%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 76px;
+    line-height: 6rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 14px;
+    letter-spacing: -3.04px;
+}
+
+.herobanner_paragraph_below_h1 {
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    line-height: 28px;
+    font-size: 1.25rem;
+    margin: 0 auto;
+    background: linear-gradient(98deg, #646464 43.06%, #858585 91.81%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 24px;
+    letter-spacing: -0.4px;
+}
+
+.herobanner_get_started_button {
+    font-weight: 650;
+    font-size: 20px;
+    font-family: Inter, sans-serif;
+    line-height: 24px;
+    letter-spacing: -.36px;
+    background-color: black;
+    padding: 14px 45px;
+    color: white;
+    border-radius: 16px;
+    height: 67px;
+    width: 325px;
+    margin-top: 10px;
+    margin-bottom:10px;
+}
